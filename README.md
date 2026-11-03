@@ -35,7 +35,7 @@ bosectl-gui 是一个中文界面的 Windows 托盘应用：实时电量、降�
 ### 方式一：Release 直接下载（推荐）
 
 **[⬇ 下载 bosectl-gui-v0.1.0.exe](https://github.com/redtecher/bosectl-gui/releases/download/v0.1.0/bosectl-gui-v0.1.0.exe)**
-（单文件，约 8.4 MB，双击即可运行，无需安装）
+（单文件，约 35 MB，双击即可运行，无需安装）
 
 更多版本见 [Releases](https://github.com/redtecher/bosectl-gui/releases)。
 
