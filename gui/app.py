@@ -45,9 +45,15 @@ class TrayController(QObject):
         # ── tray ──────────────────────────────────────────────────────────
         self.icon = QSystemTrayIcon(appIcon())
         self.icon.setToolTip("bosectl — 正在连接…")
-        menu = QMenu()
+        # MUST be kept on self: setContextMenu() does not take ownership, and
+        # a local QMenu is garbage-collected after __init__ returns — the
+        # right-click menu then simply never appears (no way to quit).
+        menu = self.menu = QMenu()
 
-        self.status_action = QAction("未连接")
+        # NOTE: adding a QAction to a menu does NOT transfer ownership —
+        # every action needs a parent (the menu) or a self reference, or
+        # Python GC reaps it and the entry vanishes from the tray menu.
+        self.status_action = QAction("未连接", menu)
         self.status_action.setEnabled(False)
         menu.addAction(self.status_action)
         menu.addSeparator()
@@ -55,7 +61,7 @@ class TrayController(QObject):
         self.cnc_menu = menu.addMenu("降噪强度")
         self._cnc_actions = {}
         for step in TRAY_CNC_STEPS:
-            act = QAction("降噪 %d%s" % (step, "（最强）" if step == 0 else ""))
+            act = QAction("降噪 %d%s" % (step, "（最强）" if step == 0 else ""), self.cnc_menu)
             act.triggered.connect(lambda _=False, lv=step: self.service.applyCnc(lv))
             self.cnc_menu.addAction(act)
             self._cnc_actions[step] = act
@@ -63,12 +69,12 @@ class TrayController(QObject):
         self.mode_menu = menu.addMenu("模式")
         menu.addSeparator()
 
-        show_action = QAction("打开主窗口")
+        show_action = QAction("打开主窗口", menu)
         show_action.triggered.connect(self._show_window)
         menu.addAction(show_action)
         menu.addSeparator()
 
-        quit_action = QAction("退出")
+        quit_action = QAction("退出", menu)
         quit_action.triggered.connect(app.quit)
         menu.addAction(quit_action)
 
