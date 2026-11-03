@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.eggs/
+.pytest_cache/
+.venv/
+venv/
+
+# Build artifacts
+build/
+dist/
+target/
+
+# Generated app icon (gui/resources.py writes these at build time)
+gui/resources/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,43 @@
+[project]
+name = "bosectl-gui"
+version = "0.1.0"
+description = "Bose 耳机 Windows 托盘控制程序 — 电量/降噪/模式/EQ，无需手机 App"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    {name = "redtecher"},
+]
+keywords = ["bose", "bluetooth", "headphones", "noise-cancellation", "tray", "bmap"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
+    "Operating System :: Microsoft :: Windows :: Windows 11",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: System :: Hardware",
+    "UI Toolkit :: Qt",
+]
+# 核心协议栈仅用标准库（含 ctypes 调 bthprops/ws2_32），GUI 需要 Qt 绑定。
+dependencies = [
+    "PySide6-Essentials>=6.6,<6.9; sys_platform == 'win32'",
+]
+
+[project.urls]
+Homepage = "https://github.com/redtecher/bosectl-gui"
+Upstream = "https://github.com/aaronsb/bosectl"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pyinstaller",
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["gui", "pybmap", "pybmap.devices", "tests"]
