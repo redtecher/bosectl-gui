@@ -130,9 +130,21 @@ class TrayController(QObject):
     # ── shutdown ──────────────────────────────────────────────────────────
 
     def shutdown(self):
-        self.service.stop()
+        # Hide the tray icon FIRST: otherwise Windows keeps a ghost entry in
+        # the notification area until the mouse sweeps over it, which looks
+        # like "quit didn't work".
+        self.icon.hide()
+        self.window.hide()
+        # End the worker's event loop directly. Do NOT queue service.stop()
+        # and wait for it: BmapConnection.close() can block for seconds on a
+        # live RFCOMM link, and a worker mid-Bluetooth-call can't service
+        # queued calls at all. The OS reclaims the socket as the process
+        # exits; terminate() only fires if the worker is wedged inside a
+        # multi-second connect/select.
         self.thread.quit()
-        self.thread.wait(3000)
+        if not self.thread.wait(1500):
+            self.thread.terminate()
+            self.thread.wait(500)
 
 
 def main():
