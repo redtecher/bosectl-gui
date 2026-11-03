@@ -34,8 +34,10 @@ bosectl-gui 是一个中文界面的 Windows 托盘应用：实时电量、降�
 
 ### 方式一：Release 直接下载（推荐）
 
-从 [Releases](https://github.com/redtecher/bosectl-gui/releases) 下载
-`bosectl-gui.exe`（单文件，约 8.4 MB），双击即可运行，无需安装。
+**[⬇ 下载 bosectl-gui-v0.1.0.exe](https://github.com/redtecher/bosectl-gui/releases/download/v0.1.0/bosectl-gui-v0.1.0.exe)**
+（单文件，约 8.4 MB，双击即可运行，无需安装）
+
+更多版本见 [Releases](https://github.com/redtecher/bosectl-gui/releases)。
 
 **系统要求**：Windows 10（1903+）或 Windows 11，蓝牙开启，耳机已在系统中配对
 （设置 → 蓝牙和其他设备）。
@@ -149,6 +151,28 @@ python -X utf8 -m gui.smoke_test
 
 - **v0.1.0**（2026-11-03）：首个发布。Windows 传输层/发现层、中文托盘 GUI、
   单文件 EXE 打包、真机冒烟测试（QC Ultra Headphones 2 全功能验证）。
+
+## 路线图
+
+- **macOS 版本** —— 适配 IOBluetooth 传输层与原生菜单栏（menu bar）常驻，
+  提供 .app / dmg 发布
+- **Linux 版本** —— 适配 BlueZ D-Bus 传输层与系统托盘（StatusNotifierItem），
+  提供 AppImage 发布
+- **界面优化** —— 深色/浅色主题跟随系统、托盘电量百分比图标、
+  主窗口信息可视化（EQ 曲线、电池分组件进度条）
+- **体验优化** —— 开机自启动、多设备切换、快捷键全局调节降噪、
+  低电量桌面通知、点击托盘气泡定位耳机
+
+> pybmap 协议库本身已跨平台（Linux/macOS 传输层继承自上游
+> [aaronsb/bosectl](https://github.com/aaronsb/bosectl)），跨平台工作主要是
+> GUI 层与打包适配。
+
+## 反馈
+
+遇到 bug 或有功能建议，请到
+[Issues](https://github.com/redtecher/bosectl-gui/issues) 提交——
+附上设备型号、系统版本和复现步骤会更快得到处理。其它型号 Bose 耳机的
+实测结果（无论成功与否）同样欢迎在 Issues 反馈。
 
 ## 致谢与许可
 
